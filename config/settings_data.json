@@ -104,7 +104,7 @@
             "type": "announcement",
             "settings": {
               "text": "Important: We are seeing nationwide delays on delivery times. Estimated delivery dates are not guaranteed. We are sorry for the inconvenience.",
-              "color_scheme": "accent-2",
+              "color_scheme": "accent-1",
               "link": ""
             }
           }
