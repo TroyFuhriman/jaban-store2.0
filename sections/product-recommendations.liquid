@@ -18,7 +18,33 @@
       padding-bottom: {{ section.settings.padding_bottom }}px;
     }
   }
+  .customBack{
+    margin-bottom:1em;
+
+  }
+  .icon {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+    fill: currentColor;
+    margin-right:10px;
+  }
 {%- endstyle -%}
+{%- assign max_height = 250 -%}
+{% case section.settings.columns_desktop %}
+{% when 2 %}
+  {%- assign max_height = 530 -%}
+  {%- assign grid_item_width = 'medium-up--one-half' -%}
+{% when 3 %}
+  {%- assign max_height = 345 -%}
+  {%- assign grid_item_width = 'small--one-half medium-up--one-third' -%}
+{% when 4 %}
+  {%- assign grid_item_width = 'small--one-half medium-up--one-quarter' -%}
+{% when 5 %}
+  {%- assign max_height = 195 -%}
+  {%- assign grid_item_width = 'small--one-half medium-up--one-fifth' -%}
+{% endcase %}
 
 <div class="color-{{ section.settings.color_scheme }} gradient">
   <product-recommendations class="product-recommendations page-width section-{{ section.id }}-padding isolate" data-url="{{ routes.product_recommendations_url }}?section_id={{ section.id }}&product_id={{ product.id }}&limit={{ section.settings.products_to_show }}">
@@ -32,13 +58,20 @@
               media_aspect_ratio: section.settings.image_ratio,
               show_secondary_image: section.settings.show_secondary_image,
               show_vendor: section.settings.show_vendor,
-              show_rating: section.settings.show_rating
+              show_rating: section.settings.show_rating,
+              section_id: section.id,
+              max_height: max_height
             %}
           </li>
         {% endfor %}
       </ul>
     {% endif %}
   </product-recommendations>
+  <div class="text-center customBack  page-width">
+    <a href="/collections/all" class="button button--secondary btn--has-icon-before return-link">
+      {% include 'icon-arrow-left' %} Back to All Products
+    </a>
+  </div>
 </div>
 
 {% javascript %}
