@@ -97,24 +97,6 @@
     "predictive_search_show_price": false,
     "currency_code_enabled": true,
     "sections": {
-      "announcement-bar": {
-        "type": "announcement-bar",
-        "blocks": {
-          "c87def5f-7f91-43bd-baed-688d1422f4c4": {
-            "type": "announcement",
-            "settings": {
-              "text": "Important: We are seeing nationwide delays on delivery times. Estimated delivery dates are not guaranteed. We are sorry for the inconvenience.",
-              "color_scheme": "accent-1",
-              "link": ""
-            }
-          }
-        },
-        "block_order": [
-          "c87def5f-7f91-43bd-baed-688d1422f4c4"
-        ],
-        "settings": {
-        }
-      },
       "header": {
         "type": "header",
         "settings": {
@@ -218,6 +200,25 @@
         "type": "main-password-footer",
         "settings": {
           "color_scheme": "background-1"
+        }
+      },
+      "announcement-bar": {
+        "type": "announcement-bar",
+        "blocks": {
+          "announcement-bar-0": {
+            "type": "announcement",
+            "settings": {
+              "text": "Important: We are seeing nationwide delays on delivery times. Estimated delivery dates are not guaranteed. We are sorry for the inconvenience.",
+              "fontSize": 12,
+              "color_scheme": "accent-1",
+              "link": ""
+            }
+          }
+        },
+        "block_order": [
+          "announcement-bar-0"
+        ],
+        "settings": {
         }
       }
     },
@@ -332,24 +333,6 @@
       "predictive_search_show_price": true,
       "currency_code_enabled": true,
       "sections": {
-        "announcement-bar": {
-          "type": "announcement-bar",
-          "blocks": {
-            "announcement-bar-0": {
-              "type": "announcement",
-              "settings": {
-                "text": "Welcome to our store",
-                "color_scheme": "background-2",
-                "link": ""
-              }
-            }
-          },
-          "block_order": [
-            "announcement-bar-0"
-          ],
-          "settings": {
-          }
-        },
         "header": {
           "type": "header",
           "settings": {
@@ -429,4 +412,3 @@
       }
     }
   }
-}
