@@ -6,14 +6,7 @@
           {%- if block.settings.link != blank -%}
             <a href="{{ block.settings.link }}" class="announcement-bar__link link link--text focus-inset animate-arrow">
           {%- endif -%}
-          <style>
-            @media screen and (min-width:750px) { 
-              p.anouncement-bar__fontSize{
-                font-size: {{block.settings.fontSize}}px;
-              }
-            }
-          </style>
-              <p class="announcement-bar__message anouncement-bar__fontSize h5">
+              <p class="announcement-bar__message h5">
                 {{ block.settings.text | escape }}
                 {%- if block.settings.link != blank -%}
                   {% render 'icon-arrow' %}
@@ -41,16 +34,6 @@
           "id": "text",
           "default": "Welcome to our store",
           "label": "t:sections.announcement-bar.blocks.announcement.settings.text.label"
-        },
-        {
-          "type":"range",
-          "min": 8,
-          "max": 24,
-          "step": 1,
-          "unit": "px",
-          "id":"fontSize",
-          "default":12,
-          "label":"choose a font size"
         },
         {
           "type": "select",
