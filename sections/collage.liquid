@@ -16,20 +16,6 @@
     }
   }
 {%- endstyle -%}
-{%- assign max_height = 250 -%}
-{% case section.settings.columns_desktop %}
-{% when 2 %}
-  {%- assign max_height = 530 -%}
-  {%- assign grid_item_width = 'medium-up--one-half' -%}
-{% when 3 %}
-  {%- assign max_height = 345 -%}
-  {%- assign grid_item_width = 'small--one-half medium-up--one-third' -%}
-{% when 4 %}
-  {%- assign grid_item_width = 'small--one-half medium-up--one-quarter' -%}
-{% when 5 %}
-  {%- assign max_height = 195 -%}
-  {%- assign grid_item_width = 'small--one-half medium-up--one-fifth' -%}
-{% endcase %}
 
 <link rel="stylesheet" href="{{ 'component-deferred-media.css' | asset_url }}" media="print" onload="this.media='all'">
 
@@ -70,9 +56,7 @@
                 card_product: block.settings.product,
                 media_aspect_ratio: 'adapt',
                 show_secondary_image: block.settings.second_image,
-                extend_height: true,
-                section_id: section.id,
-                max_height: max_height
+                extend_height: true
               %}
             {%- when 'collection' -%}
               {% render 'card-collection',

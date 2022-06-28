@@ -28,12 +28,7 @@
     {% endif %}
 
     {% render 'meta-tags' %}
-    <script>
-      window.onload = function() {
-      if(window.location.href == "https://shop.drjabanmoore.com/"){
-          window.location.href = "https://shop.drjabanmoore.com/collections/all";}
-      } 
-    </script>
+
     <script src="{{ 'global.js' | asset_url }}" defer="defer"></script>
     {{ content_for_header }}
 
