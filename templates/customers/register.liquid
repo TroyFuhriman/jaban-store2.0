@@ -1,5 +1,10 @@
 {{ 'customer.css' | asset_url | stylesheet_tag }}
-
+<style>
+  select:invalid{
+    color: rgba(46, 42, 57, .75);
+  }
+</style>
+{% assign password = shop.metafields.global.password | strip | sha1 %}
 <div class="customer register">
   <svg style="display: none">
     <symbol id="icon-error" viewBox="0 0 13 13">
@@ -61,6 +66,36 @@
         {{ 'customer.register.last_name' | t }}
       </label>
     </div>
+    <div class="field">
+      <input type="hidden" id="referredBy" name="customer[tags]" >
+      
+      {%- comment -%}
+      NOTE!  Instructions to input a new practitioner! This next section of the code is the only thing that needs updating. copy next line.
+      <option> Dr. Testing  </option>
+      paste it in the line after the line that says "paste after this line"
+      Change "Dr. Testing to the new practitioner name
+      press save in the top right portion of the page and then go check the registration page to make sure that it worked correctly.
+      {%- endcomment -%}
+      
+      
+      <select name="customer[tags]" required>
+        <option value="" selected disabled hidden>Referred By</option>
+        <option>Dr. Jaban</option>
+        <option>Dr. Bronwyn</option>
+        <option>Cheyenne NP</option>
+        <option>Dr. Chelsea</option>
+        <option>Dr. George</option>
+        <option>Emily Morrow</option>
+        <option>Dr. Canestraro</option>
+        
+        
+      </select>
+      <label class="hidden" for="referredBy">Referred by</label>
+    </div>
+    <div class="field">
+      <input data-register="store_password" type="text" name="store-password" id="Store-Password" placeholder="store password">  
+      <label for="Store-Password">Store Password</label>
+    </div>
     <div class="field">      
       <input
         type="email"
@@ -105,6 +140,9 @@
         {{ 'customer.register.password' | t }}
       </label>
     </div>
+<div>
+  <a  class="mt-2" href="https://drjabanmoore.com/shop" target="_blank" id="RecoverPassword">Forgot Store Password?</a>
+</div>
     {%- if form.errors contains 'password' -%}
       <span id="RegisterForm-password-error" class="form__message">
         <svg aria-hidden="true" focusable="false" role="presentation">
@@ -118,3 +156,49 @@
     </button>
   {%- endform -%}
 </div>
+<script>
+
+  const registerForm = document.getElementById("create_customer");
+  const storePasswordCheck = (e) => {
+    e.preventDefault();
+    const formElems = document.querySelectorAll("[data-register]");
+    let count = 0;
+    formElems.forEach(element => {
+      const elementValue = element.value.trim() ;
+      const required = document.querySelector(`[data-${element.dataset.register}-required]`);
+      if (!elementValue) {
+        count++;
+        addError(element, required)
+      } 
+      else{
+        removeError(element, required)
+      }
+      if (element.name === "store-password") {
+        const submittedPassword = element.value;
+        const hashedPassword = utils.hash.SHA1(submittedPassword);
+        const link = document.querySelector(`[data-${element.dataset.register}-link]`);
+        if (hashedPassword !== "{{password}}"){
+          count++
+          addError(element, link)
+        } 
+        else{
+          removeError(element, link)
+        }
+      }
+    });
+    if (count === 0) {
+      registerForm.setAttribute("action", "/account");
+      registerForm.submit();
+    }
+  }
+  const addError = (input, requiredElem) => {
+    input.classList.add("error");
+        requiredElem.dataset.showLive = true;
+  }
+  const removeError = (input, requiredElem) => {
+    input.classList.remove("error");
+        requiredElem.dataset.showLive = false;
+  }
+  registerForm.removeAttribute("action");
+  registerForm.addEventListener("submit", storePasswordCheck, false);
+</script>
