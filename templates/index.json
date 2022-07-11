@@ -18,9 +18,53 @@
       "settings": {
         "include_margins": true
       }
+    },
+    "1657552574a8e25c2b": {
+      "type": "image-with-text",
+      "blocks": {
+        "165755257479044746-0": {
+          "type": "heading",
+          "settings": {
+            "heading": "default view",
+            "heading_size": "h1"
+          }
+        },
+        "165755257479044746-1": {
+          "type": "text",
+          "settings": {
+            "text": "<p>This page will not be shown to the user. This is left if the main page is desired to have a different landing page in the future. The user gets redirected to the collection page.<\/p>",
+            "text_style": "body"
+          }
+        },
+        "165755257479044746-2": {
+          "type": "button",
+          "settings": {
+            "button_label": "Button label",
+            "button_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "165755257479044746-0",
+        "165755257479044746-1",
+        "165755257479044746-2"
+      ],
+      "settings": {
+        "height": "adapt",
+        "desktop_image_width": "medium",
+        "layout": "image_first",
+        "desktop_content_position": "top",
+        "desktop_content_alignment": "left",
+        "content_layout": "no-overlap",
+        "color_scheme": "background-1",
+        "mobile_content_alignment": "left",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
     }
   },
   "order": [
-    "1652758489cc73511a"
+    "1652758489cc73511a",
+    "1657552574a8e25c2b"
   ]
 }
