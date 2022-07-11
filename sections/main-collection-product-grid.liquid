@@ -5,6 +5,14 @@
 
 <link rel="preload" href="{{ 'component-rte.css' | asset_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
 
+{% if collection == null %}
+{% for collection in collections %}
+{% if collection.title == "All Products" %}
+{% assign collection = collection %}
+{% endif %}
+{% endfor %}
+{% endif %}
+
 {%- if section.settings.enable_quick_add -%}
   <link rel="stylesheet" href="{{ 'quick-add.css' | asset_url }}" media="print" onload="this.media='all'">
   <script src="{{ 'quick-add.js' | asset_url }}" defer="defer"></script>

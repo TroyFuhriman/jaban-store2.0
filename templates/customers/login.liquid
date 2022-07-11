@@ -1,5 +1,34 @@
 {{ 'customer.css' | asset_url | stylesheet_tag }}
-
+<style>
+  .error{
+    border: 1px solid red !important;
+  }
+  [data-show-live="false"]{
+    display: none !important;
+  }
+  .customer div.field {
+  margin:0
+  }
+  .containerField {
+    margin-top: 2rem;
+  }
+  .d-flex{
+    display: flex;
+  }
+  .margin-0{
+    margin: 0 !important;
+  }
+  .justify-content-spacebetween{
+    justify-content: space-between;
+  }
+  .align-items-center{
+    align-items: center;
+  }
+  .mt-2{
+    margin-top: 1em !important;
+  }
+  </style>
+{% assign password = shop.metafields.global.password | strip | sha1 %}
 <div class="customer login">
   <h1 id="recover" tabindex="-1">
     {{ 'customer.recover_password.title' | t }}
@@ -11,8 +40,8 @@
 
     {%- form 'recover_customer_password' -%}
       {% assign recover_success = form.posted_successfully? %}
-      <div class="field">
-        <input type="email"
+        <div class="field">
+          <input type="email"
           value=""
           name="email"
           id="RecoverEmail"
@@ -20,16 +49,16 @@
           autocapitalize="off"
           autocomplete="email"
           {% if form.errors %}
-            aria-invalid="true"
-            aria-describedby="RecoverEmail-email-error"
-            autofocus
+          aria-invalid="true"
+          aria-describedby="RecoverEmail-email-error"
+          autofocus
           {% endif %}
           placeholder="{{ 'customer.login_page.email' | t }}"
-        >
-        <label for="RecoverEmail">
-          {{ 'customer.login_page.email' | t }}
-        </label>
-      </div>
+          >
+          <label for="RecoverEmail">
+            {{ 'customer.login_page.email' | t }}
+          </label>
+        </div>
       {%- if form.errors -%}
         <small id="RecoverEmail-email-error" class="form__message">
           <svg aria-hidden="true" focusable="false" role="presentation" viewBox="0 0 13 13">
@@ -67,6 +96,10 @@
       </h3>
     {%- endif -%}
     {%- form 'customer_login', novalidate: 'novalidate' -%}
+    {% if request.path contains "login" %}
+    {% assign redirect = "/account" %}
+  {% endif %}
+  <input type="hidden" id="redirect_to" value="{{redirect | default: request.path}}">
       {%- if form.errors -%}
         <h2 class="form__message" tabindex="-1" autofocus>
           <span class="visually-hidden">{{ 'accessibility.error' | t }} </span>
@@ -80,9 +113,13 @@
         </h2>
         {{ form.errors | default_errors }}
       {%- endif -%}
-
-      <div class="field">        
+      <div class="containerField">
+        <div class="d-flex justify-content-spacebetween align-items-center">
+          <span data-show-live="false"  data-email-required   class="required">*Required</span>
+        </div>
+        <div class="field">        
         <input
+        data-login="email"
           type="email"
           name="customer[email]"
           id="CustomerEmail"
@@ -98,10 +135,16 @@
           {{ 'customer.login_page.email' | t }}
         </label>
       </div>
+      </div>
 
       {%- if form.password_needed -%}
+      <div class="containerField">
+        <div class="d-flex justify-content-spacebetween align-items-center">
+          <span data-show-live="false" data-password-required  class="required">*Required</span>
+        </div>
         <div class="field">          
           <input
+          data-login="password"
             type="password"
             value=""
             name="customer[password]"
@@ -116,11 +159,32 @@
             {{ 'customer.login_page.password' | t }}
           </label>
         </div>
+      </div>
+        
+      <div class="containerField">
+        <div class="d-flex justify-content-spacebetween align-items-center">
+          <span data-show-live="false" data-store_password-required  class="required">*Required</span>
+          <a href="https://drjabanmoore.com/shop" target="_blank" data-show-live="false" data-store_password-link  class="required margin-0">Forgot Store Password?</a>
+        </div>
+        <div class="field">
 
-        <a href="#recover">
+          <input
+          data-login="store_password"
+          type="text"
+          name="store-password"
+          id="StorePassword"
+          placeholder="Store Password"
+          >
+          <label for="StorePassword">Store Password</label>
+        </div>
+        </div>
+
+        <a  class="mt-2" href="https://drjabanmoore.com/shop" target="_blank" id="RecoverPassword">Forgot Store Password?</a>
+        <a class="mt-2" href="#recover">
           {{ 'customer.login_page.forgot_password' | t }}
         </a>
       {%- endif -%}
+      
 
       <button>
         {{ 'customer.login_page.sign_in' | t }}
@@ -146,3 +210,52 @@
     </div>
   {%- endif -%}
 </div>
+<script>
+  const customer_login_form = document.getElementById("customer_login");
+const storePasswordCheck = (e) => {
+e.preventDefault();
+  const formElems = document.querySelectorAll("[data-login]");
+  let count = 0;
+  formElems.forEach(element => {
+    const elementValue = element.value.trim() ;
+    const required = document.querySelector(`[data-${element.dataset.login}-required]`);
+    if (!elementValue) {
+      count++;
+      addError(element, required)
+    } 
+    else{
+      removeError(element, required)
+    }
+    if (element.name === "store-password") {
+      const submittedPassword = element.value;
+      const hashedPassword = utils.hash.SHA1(submittedPassword);
+      const link = document.querySelector(`[data-${element.dataset.login}-link]`);
+      if (hashedPassword !== "{{password}}"){
+        count++
+        addError(element, link)
+      } 
+      else{
+        removeError(element, link)
+      }
+    }
+  });
+  if (count === 0) {
+    customer_login_form.setAttribute("action", "/account/login");
+    customer_login_form.submit();
+  }
+}
+const addError = (input, requiredElem) => {
+  console.log("hello", input, requiredElem)
+  input.classList.add("error");
+      requiredElem.dataset.showLive = true;
+}
+const removeError = (input, requiredElem) => {
+  console.log("hello", input, requiredElem)
+  input.classList.remove("error");
+      requiredElem.dataset.showLive = false;
+}
+
+
+  customer_login_form.removeAttribute("action");
+customer_login_form.addEventListener("submit", storePasswordCheck, false);
+</script>
