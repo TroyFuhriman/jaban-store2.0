@@ -12,13 +12,6 @@
     "165276341132e0ab0a": {
       "type": "image-banner",
       "blocks": {
-        "6d8084ab-b38c-4218-88bf-7bb3596149be": {
-          "type": "heading",
-          "settings": {
-            "heading": "Healing is not Linear",
-            "heading_size": "h1"
-          }
-        },
         "43ae51ab-6c08-445c-b18f-c51c8c23625e": {
           "type": "text",
           "disabled": true,
@@ -29,7 +22,6 @@
         }
       },
       "block_order": [
-        "6d8084ab-b38c-4218-88bf-7bb3596149be",
         "43ae51ab-6c08-445c-b18f-c51c8c23625e"
       ],
       "settings": {
