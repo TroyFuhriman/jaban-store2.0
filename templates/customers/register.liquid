@@ -3,6 +3,33 @@
   select:invalid{
     color: rgba(46, 42, 57, .75);
   }
+  .error{
+    border: 1px solid red !important;
+  }
+  [data-show-live="false"]{
+    display: none !important;
+  }
+  .customer div.field {
+  margin:0
+  }
+  .containerField {
+    margin-top: 2rem;
+  }
+  .d-flex{
+    display: flex;
+  }
+  .margin-0{
+    margin: 0 !important;
+  }
+  .justify-content-spacebetween{
+    justify-content: space-between;
+  }
+  .align-items-center{
+    align-items: center;
+  }
+  .mt-2{
+    margin-top: 1em !important;
+  }
 </style>
 {% assign password = shop.metafields.global.password | strip | sha1 %}
 <div class="customer register">
@@ -40,66 +67,93 @@
         {%- endfor -%}
       </ul>
     {%- endif -%}
-    <div class="field">      
-      <input
+    <div class="containerField">
+      <div class="d-flex justify-content-spacebetween align-items-center">
+        <span data-show-live="false"  data-first-required   class="required">*Required</span>
+      </div>
+      <div class="field">      
+        <input
         type="text"
+        data-register="first"
         name="customer[first_name]"
         id="RegisterForm-FirstName"
         {% if form.first_name %}value="{{ form.first_name }}"{% endif %}
         autocomplete="given-name"
         placeholder="{{ 'customer.register.first_name' | t }}"
-      >
-      <label for="RegisterForm-FirstName">
-        {{ 'customer.register.first_name' | t }}
-      </label>
+        >
+        <label for="RegisterForm-FirstName">
+          {{ 'customer.register.first_name' | t }}
+        </label>
+      </div>
     </div>
-    <div class="field">
-      <input
+    <div class="containerField">
+      <div class="d-flex justify-content-spacebetween align-items-center">
+        <span data-show-live="false"  data-last-required   class="required">*Required</span>
+      </div>
+      <div class="field">
+        <input
         type="text"
+        data-register="last"
         name="customer[last_name]"
         id="RegisterForm-LastName"
         {% if form.last_name %}value="{{ form.last_name }}"{% endif %}
         autocomplete="family-name"
         placeholder="{{ 'customer.register.last_name' | t }}"
-      >
-      <label for="RegisterForm-LastName">
-        {{ 'customer.register.last_name' | t }}
-      </label>
+        >
+        <label for="RegisterForm-LastName">
+          {{ 'customer.register.last_name' | t }}
+        </label>
+      </div>
     </div>
-    <div class="field">
-      <input type="hidden" id="referredBy" name="customer[tags]" >
-      
-      {%- comment -%}
-      NOTE!  Instructions to input a new practitioner! This next section of the code is the only thing that needs updating. copy next line.
-      <option> Dr. Testing  </option>
-      paste it in the line after the line that says "paste after this line"
-      Change "Dr. Testing to the new practitioner name
-      press save in the top right portion of the page and then go check the registration page to make sure that it worked correctly.
-      {%- endcomment -%}
-      
-      
-      <select name="customer[tags]" required>
-        <option value="" selected disabled hidden>Referred By</option>
-        <option>Dr. Jaban</option>
-        <option>Dr. Bronwyn</option>
-        <option>Cheyenne NP</option>
-        <option>Dr. Chelsea</option>
-        <option>Dr. George</option>
-        <option>Emily Morrow</option>
-        <option>Dr. Canestraro</option>
+    <div class="containerField">
+      <div class="d-flex justify-content-spacebetween align-items-center">
+        <span data-show-live="false"  data-tag-required   class="required">*Required</span>
+      </div>
+      <div class="field">
+        <input type="hidden" id="referredBy" name="customer[tags]" >
+        
+        {%- comment -%}
+        NOTE!  Instructions to input a new practitioner! This next section of the code is the only thing that needs updating. copy next line.
+        <option> Dr. Testing  </option>
+        paste it in the line after the line that says "paste after this line"
+        Change "Dr. Testing to the new practitioner name
+        press save in the top right portion of the page and then go check the registration page to make sure that it worked correctly.
+        {%- endcomment -%}
         
         
-      </select>
-      <label class="hidden" for="referredBy">Referred by</label>
+        <select name="customer[tags]" data-register="tag" required>
+          <option value="" selected disabled hidden>Referred By</option>
+          <option>Dr. Jaban</option>
+          <option>Dr. Bronwyn</option>
+          <option>Cheyenne NP</option>
+          <option>Dr. Chelsea</option>
+          <option>Dr. George</option>
+          <option>Emily Morrow</option>
+          <option>Dr. Canestraro</option>
+          
+          
+        </select>
+        <label class="hidden" for="referredBy">Referred by</label>
+      </div>
     </div>
-    <div class="field">
-      <input data-register="store_password" type="text" name="store-password" id="Store-Password" placeholder="store password">  
-      <label for="Store-Password">Store Password</label>
+    <div class="containerField">
+      <div class="d-flex justify-content-spacebetween align-items-center">
+        <span data-show-live="false"  data-store_password-required   class="required">*Required</span>
+      </div>
+      <div class="field">
+        <input data-register="store_password"  type="text" name="store-password" id="Store-Password" placeholder="store password">  
+        <label for="Store-Password">Store Password</label>
+      </div>
     </div>
-    <div class="field">      
-      <input
+    <div class="containerField">
+      <div class="d-flex justify-content-spacebetween align-items-center">
+        <span data-show-live="false"  data-email-required   class="required">*Required</span>
+      </div>
+      <div class="field">      
+        <input
         type="email"
         name="customer[email]"
+        data-register="email"
         id="RegisterForm-email"
         {% if form.email %} value="{{ form.email }}"{% endif %}
         spellcheck="false"
@@ -107,16 +161,17 @@
         autocomplete="email"
         aria-required="true"
         {% if form.errors contains 'email' %}
-          aria-invalid="true"
-          aria-describedby="RegisterForm-email-error"
+        aria-invalid="true"
+        aria-describedby="RegisterForm-email-error"
         {% endif %}
         placeholder="{{ 'customer.register.email' | t }}"
-      >
-      <label for="RegisterForm-email">
-        {{ 'customer.register.email' | t }}
-      </label>
-    </div>
-    {%- if form.errors contains 'email' -%}
+        >
+        <label for="RegisterForm-email">
+          {{ 'customer.register.email' | t }}
+        </label>
+      </div>
+      </div>
+      {%- if form.errors contains 'email' -%}
       <span id="RegisterForm-email-error" class="form__message">
         <svg aria-hidden="true" focusable="false" role="presentation">
           <use href="#icon-error" />
@@ -124,21 +179,27 @@
         {{ form.errors.translated_fields['email'] | capitalize }} {{ form.errors.messages['email'] }}.
       </span>
     {%- endif -%}
-    <div class="field">     
-      <input
+    <div class="containerField">
+      <div class="d-flex justify-content-spacebetween align-items-center">
+        <span data-show-live="false"  data-password-required   class="required">*Required</span>
+      </div>
+      <div class="field">     
+        <input
         type="password"
+        data-register="password"
         name="customer[password]"
         id="RegisterForm-password"
         aria-required="true"
         {% if form.errors contains 'password' %}
-          aria-invalid="true"
-          aria-describedby="RegisterForm-password-error"
+        aria-invalid="true"
+        aria-describedby="RegisterForm-password-error"
         {% endif %}
         placeholder="{{ 'customer.register.password' | t }}"
-      >
-      <label for="RegisterForm-password">
-        {{ 'customer.register.password' | t }}
-      </label>
+        >
+        <label for="RegisterForm-password">
+          {{ 'customer.register.password' | t }}
+        </label>
+      </div>
     </div>
 <div>
   <a  class="mt-2" href="https://drjabanmoore.com/shop" target="_blank" id="RecoverPassword">Forgot Store Password?</a>
@@ -176,13 +237,12 @@
       if (element.name === "store-password") {
         const submittedPassword = element.value;
         const hashedPassword = utils.hash.SHA1(submittedPassword);
-        const link = document.querySelector(`[data-${element.dataset.register}-link]`);
         if (hashedPassword !== "{{password}}"){
           count++
-          addError(element, link)
+          addError(element, required)
         } 
         else{
-          removeError(element, link)
+          removeError(element, required)
         }
       }
     });

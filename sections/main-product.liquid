@@ -19,13 +19,20 @@
         padding-bottom: {{ section.settings.padding_bottom }}px;
       }
     }
-    quantity-input .quantity{
-      color:#ffffff
-    }
+
   {%- endstyle -%}
   <style>
     .error{
       color: red;
+      font-weight: 600;
+    }
+    product-form.product-form button {
+      background: #206d7f;
+    color: #ffffff;
+    }
+    product-form.product-form button:hover {
+      color: #206d7f;
+    background: #ffffff;
     }
   </style>
 
@@ -298,8 +305,6 @@
             </quantity-input>
           </div>
           {% endif %}
-          {%- when "login" -%}
-          <p><span class="error">Account Required:</span> {{block.settings.text}}</p>
           {%- when 'popup' -%}
           <modal-opener class="product-popup-modal__opener no-js-hidden quick-add-hidden" data-modal="#PopupModal-{{ block.id }}" {{ block.shopify_attributes }}>
                 <button id="ProductPopup-{{ block.id }}" class="product-popup-modal__button link" type="button" aria-haspopup="dialog">{{ block.settings.text | default: block.settings.page.title }}</button>
@@ -430,10 +435,11 @@
                   </svg>
                   <span class="product-form__error-message"></span>
                 </div>
+                {% if customer %}
                 {%- form 'product', product, id: product_form_id, class: 'form', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
                   <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" disabled>
                   <div class="product-form__buttons">
-                    {% if customer %}
+                    
                     <button
                     type="submit"
                     name="add"
@@ -453,12 +459,15 @@
                       </svg>
                     </div>
                   </button>
-                  {% endif %}
-                    {%- if block.settings.show_dynamic_checkout and customer -%}
-                      {{ form | payment_button }}
-                    {%- endif -%}
-                  </div>
+                  {%- if block.settings.show_dynamic_checkout and customer -%}
+                  {{ form | payment_button }}
+                  {%- endif -%}
+                </div>
                 {%- endform -%}
+                {% else %}
+                  <p><span class="error">Account Required:</span> {{block.settings.account_required}}</p>
+                  <button data-login class="button buttton-full-width">Login</button>
+                {% endif %}
               </product-form>
 
               {{ 'component-pickup-availability.css' | asset_url | stylesheet_tag }}
@@ -591,6 +600,9 @@
         hiddenInput.value = event.currentTarget.value;
       });
     });
+    document.querySelector("[data-login]").addEventListener("click", () => {
+      document.location = "/account/login"
+    },false)
   </script>
 
   {%- liquid
@@ -656,12 +668,6 @@
           "id": "text",
           "default": "Text block",
           "label": "t:sections.main-product.blocks.text.settings.text.label"
-        },
-        {
-          "type": "text",
-          "id": "login",
-          "default": "Account Required text",
-          "label": "Account required text block"
         },
         {
           "type": "select",
@@ -734,6 +740,12 @@
           "default": true,
           "label": "t:sections.main-product.blocks.buy_buttons.settings.show_dynamic_checkout.label",
           "info": "t:sections.main-product.blocks.buy_buttons.settings.show_dynamic_checkout.info"
+        },
+        {
+          "type": "text",
+          "id": "account_required",
+          "label":"Account required Text",
+          "default":"Please login or create an account, to view pricing information, and to purchase this product"
         }
       ]
     },
