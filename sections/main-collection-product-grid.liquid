@@ -5,6 +5,11 @@
 
 
 <link rel="preload" href="{{ 'component-rte.css' | asset_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+
+
+
+
+
 <style>
   button.button--secondary{
     background: #206d7f;
@@ -15,7 +20,6 @@
     background: #ffffff;
   }
 </style>
-
 {% if collection == null %}
 {% for collection in collections %}
 {% if collection.title == "All Products" %}
