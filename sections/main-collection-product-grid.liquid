@@ -2,6 +2,16 @@
 {{ 'component-loading-overlay.css' | asset_url | stylesheet_tag }}
 {{ 'component-card.css' | asset_url | stylesheet_tag }}
 {{ 'component-price.css' | asset_url | stylesheet_tag }}
+<style>
+  button.button--secondary{
+    background: #206d7f;
+    color: #ffffff;
+  }
+  button.button--secondary:hover{
+    color: #206d7f;
+    background: #ffffff;
+  }
+</style>
 
 <link rel="preload" href="{{ 'component-rte.css' | asset_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
 
