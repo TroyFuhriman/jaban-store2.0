@@ -91,6 +91,8 @@
         "quantitySelector": "",
         "enableAddJSInterceptor": "false",
         "reBuyEnabled": "false",
+        "loyaltyDetailsLabelText": "",
+        "loyaltyPerkDescriptionText": "",
         "widgetTemplateHtml": ``,
         "css": {
             "appstle_subscription_widget": {
