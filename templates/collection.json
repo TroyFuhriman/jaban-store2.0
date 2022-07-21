@@ -62,7 +62,7 @@
         "098ddc2d-358d-4a52-85b2-ec2c4343c6dd": {
           "type": "shopify:\/\/apps\/instafeed-instagram-feed\/blocks\/app-block\/c447db20-095d-4a10-9725-b5977662c9d5",
           "settings": {
-            "heading_size": 20,
+            "heading_size": 30,
             "feed_width": 100,
             "html_area": ""
           }
@@ -72,7 +72,7 @@
         "098ddc2d-358d-4a52-85b2-ec2c4343c6dd"
       ],
       "settings": {
-        "include_margins": true
+        "include_margins": false
       }
     }
   },
