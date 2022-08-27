@@ -17,7 +17,7 @@
       };
 
 
-      appstleLoadScript("https://cdn.shopify.com/s/files/1/0278/4326/4609/t/9/assets/appstle-subscription.js?v=1660828909");
+      appstleLoadScript("https://cdn.shopify.com/s/files/1/0278/4326/4609/t/9/assets/appstle-subscription.js?v=1661607858");
 
 
       window.RS = Window.RS || {};
@@ -96,7 +96,7 @@
         "loyaltyPerkDescriptionText": "",
         "widgetTemplateHtml": ``,
         "bundle": {},
-        "labels": null,
+        "labels": "{\"appstle.subscription.wg.oneTimePurchaseTextV2\":\"One Time Purchase\"}",
         "css": {
             "appstle_subscription_widget": {
                 "margin-top": "" ,
