@@ -1270,6 +1270,19 @@ button.shopify-payment-button__button--unbranded,
   position: relative;
 }
 
+form.form.modal-form button.shopify-payment-button__button.shopify-payment-button__button--unbranded {
+  --shadow-horizontal-offset: var(--buttons-shadow-horizontal-offset);
+  --shadow-vertical-offset: var(--buttons-shadow-vertical-offset);
+  --shadow-blur-radius: var(--buttons-shadow-blur-radius);
+  --shadow-opacity: var(--buttons-shadow-opacity);
+  --border-offset: var(--buttons-border-offset);
+  /* reduce radius edge artifacts */
+  --border-opacity: calc(1 - var(--buttons-border-opacity));
+  border-radius: var(--buttons-radius-outset);
+  position: relative;
+  display: none;
+}
+
 .button,
 .shopify-challenge__button,
 .customer button,
@@ -1417,6 +1430,11 @@ button.shopify-payment-button__button--unbranded {
 .button.loading {
   color: transparent;
   position: relative;
+  background-color: white;
+}
+
+[data-show-live="false"] {
+  display: none !important;
 }
 
 @media screen and (forced-colors: active) {
