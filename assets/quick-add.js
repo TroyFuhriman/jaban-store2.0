@@ -80,16 +80,12 @@ if (!customElements.get('quick-add-modal')) {
               };
               if(document.querySelector("#appstle_selling_plan_label_20").checked){
                 const selector = document.querySelector("#appstle_selling_plan0");
-                console.log("add to cart with selling plan", selector.value);
                 cartObject.items[0].selling_plan = selector.value;
                 devFetchAddToCart(cartObject);
               }
               else{
                 devFetchAddToCart(cartObject);
               }
-              }
-              const buyNow = ()=> {
-                console.log("buying now")
               }
           const form = this.querySelector("form");
           form.removeAttribute("action");
