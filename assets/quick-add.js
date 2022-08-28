@@ -54,11 +54,21 @@ if (!customElements.get('quick-add-modal')) {
                     body: JSON.stringify(cartData)
                 })
                 const data = await response.json();
-                console.log(data);
                 const cartNotification = document.querySelector('cart-notification');
-                cartNotification.renderContents(data);
+                const cartResponse = await fetch("/cart.js", {
+                  method: "GET",
+                  headers: {
+                      "Content-type": "application/json"
+                  }
+              });
+              const returnedCart = await cartResponse.json();
+              super.hide();
+                cartNotification.renderContents(data, returnedCart);
               };
-              const devAddToCart = (e, item)=> {
+              const devAddToCart = (e, item, button)=> {
+                button.classList.add("loading");
+                button.disabled = true;
+                button.querySelector(".loading-overlay__spinner").classList.remove("hidden");
                 const cartObject = {
                   "items": 
                   [
@@ -77,14 +87,18 @@ if (!customElements.get('quick-add-modal')) {
               else{
                 devFetchAddToCart(cartObject);
               }
-              super.hide()
+              }
+              const buyNow = ()=> {
+                console.log("buying now")
               }
           const form = this.querySelector("form");
           form.removeAttribute("action");
           form.removeAttribute("method");
           const addToCart = this.querySelector("button.button");
           addToCart.type = "button";
-          addToCart.addEventListener("click", ()=>{devAddToCart(form, data)}, false);
+          document.querySelector("form.form").classList.add("modal-form");
+          document.querySelector("form.form .shopify-payment-button button").dataset.showLive = false;
+          addToCart.addEventListener("click", ()=>{devAddToCart(form, data, addToCart)}, false);
           form.insertAdjacentHTML("beforeend", `<div class="appstle_sub_widget" id="appstle_subscription_widget0"><div class="appstle_widget_title">Purchase Options</div><div class="appstle_subscription_wrapper"><div class="appstle_subscription_wrapper_option appstle_selected_background">
           <input type="radio" checked="" id="appstle_selling_plan_label_10" name="selling_plan" value="">
           <label for="appstle_selling_plan_label_10" class="appstle_radio_label">
@@ -136,6 +150,7 @@ if (!customElements.get('quick-add-modal')) {
                                         }
                                       }, false)
                                     })
+
                                   })
           this.removeGalleryListSemantic();
           this.preventVariantURLSwitching();
