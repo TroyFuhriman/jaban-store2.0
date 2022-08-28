@@ -600,7 +600,7 @@
         hiddenInput.value = event.currentTarget.value;
       });
     });
-    document.querySelector("[data-login]").addEventListener("click", () => {
+    document.querySelector("[data-login]")?.addEventListener("click", () => {
       document.location = "/account/login"
     },false)
   </script>
