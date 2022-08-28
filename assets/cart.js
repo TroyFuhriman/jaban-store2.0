@@ -81,7 +81,7 @@ class CartItems extends HTMLElement {
             document.getElementById(section.id).querySelector(section.selector) || document.getElementById(section.id);
 
           elementToReplace.innerHTML =
-            this.getSectionInnerHTML(parsedState?.sections?.[section?.section], section?.selector);
+            this.getSectionInnerHTML(parsedState.sections[section.section], section.selector);
         }));
 
         this.updateLiveRegions(line, parsedState.item_count);
@@ -119,7 +119,7 @@ class CartItems extends HTMLElement {
   getSectionInnerHTML(html, selector) {
     return new DOMParser()
       .parseFromString(html, 'text/html')
-      .querySelector(selector)?.innerHTML;
+      .querySelector(selector).innerHTML;
   }
 
   enableLoading(line) {
