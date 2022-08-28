@@ -99,7 +99,7 @@
     {% if request.path contains "login" %}
     {% assign redirect = "/account" %}
   {% endif %}
-  <input type="hidden" id="redirect_to" value="{{redirect | default: request.path}}">
+  <!-- <input type="hidden" id="redirect_to" value="{{redirect | default: request.path}}"> -->
       {%- if form.errors -%}
         <h2 class="form__message" tabindex="-1" autofocus>
           <span class="visually-hidden">{{ 'accessibility.error' | t }} </span>
