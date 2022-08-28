@@ -1,3 +1,4 @@
+
 if (!customElements.get('quick-add-modal')) {
   customElements.define('quick-add-modal', class QuickAddModal extends ModalDialog {
     constructor() {
@@ -14,7 +15,9 @@ if (!customElements.get('quick-add-modal')) {
       super.hide();
     }
 
+
     show(opener) {
+
       opener.setAttribute('aria-disabled', true);
       opener.classList.add('loading');
       opener.querySelector('.loading-overlay__spinner').classList.remove('hidden');
@@ -169,13 +172,13 @@ if (!customElements.get('quick-add-modal')) {
         Array.from(oldScriptTag.attributes).forEach(attribute => {
           newScriptTag.setAttribute(attribute.name, attribute.value)
         });
-        newScriptTag.appendChild(document.createTextNode(oldScriptTag.innerHTML));
-        oldScriptTag.parentNode.replaceChild(newScriptTag, oldScriptTag);
+        newScriptTag?.appendChild(document.createTextNode(oldScriptTag.innerHTML));
+        oldScriptTag?.parentNode?.replaceChild(newScriptTag, oldScriptTag);
       });
     }
 
     preventVariantURLSwitching() {
-      this.modalContent.querySelector('variant-radios,variant-selects').setAttribute('data-update-url', 'false');
+      this.modalContent.querySelector('variant-radios,variant-selects')?.setAttribute('data-update-url', 'false');
     }
     
     removeDOMElements() {

@@ -30,6 +30,7 @@ class CartNotification extends HTMLElement {
 
     removeTrapFocus(this.activeElement);
   }
+
   renderContents(parsedState, cartObject) {
     console.log(parsedState, this)
       this.cartItemKey = parsedState.key;
@@ -38,7 +39,10 @@ class CartNotification extends HTMLElement {
           this.getSectionInnerHTML(parsedState?.sections?.[section.id], section.selector, section.id, cartObject, parsedState);
       }));
 
-      if (this.header) this.header.reveal();
+      if (this.header){
+        this.header.classList.add('shopify-section-header-sticky', 'animate');
+        this.header.classList.remove('shopify-section-header-hidden');
+        }
       this.open();
   }
 
