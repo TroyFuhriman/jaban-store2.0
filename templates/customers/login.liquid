@@ -212,38 +212,42 @@
 </div>
 <script>
   const customer_login_form = document.getElementById("customer_login");
-const storePasswordCheck = (e) => {
-e.preventDefault();
+  const signBtn = document.querySelector("#customer_login button");
   const formElems = document.querySelectorAll("[data-login]");
-  let count = 0;
-  formElems.forEach(element => {
-    const elementValue = element.value.trim() ;
-    const required = document.querySelector(`[data-${element.dataset.login}-required]`);
-    if (!elementValue) {
-      count++;
-      addError(element, required)
-    } 
-    else{
-      removeError(element, required)
-    }
+  const checkIfValid = (element) => {
     if (element.name === "store-password") {
       const submittedPassword = element.value;
       const hashedPassword = utils.hash.SHA1(submittedPassword);
-      const link = document.querySelector(`[data-${element.dataset.login}-link]`);
       if (hashedPassword !== "{{password}}"){
-        count++
-        addError(element, link)
+        return false;
       } 
       else{
-        removeError(element, link)
+        return true
       }
     }
-  });
-  if (count === 0) {
-    customer_login_form.setAttribute("action", "/account/login");
-    customer_login_form.submit();
+    if(element.value.trim()){
+      return true;
+    }
+    return false;
+  }
+const handleInput = (e) => {
+  const inputValue = e.target.value.trim();
+  e.target.value = inputValue;
+  let count = 0;
+  formElems.forEach((element)=> {
+    const check = checkIfValid(element);
+    if(check){
+      count++
+    }
+  })
+  if(count === 3){
+    signBtn.disabled = false;
+  }
+  else{
+    signBtn.disabled = true;
   }
 }
+
 const addError = (input, requiredElem) => {
   input.classList.add("error");
       requiredElem.dataset.showLive = true;
@@ -253,7 +257,9 @@ const removeError = (input, requiredElem) => {
       requiredElem.dataset.showLive = false;
 }
 
+signBtn.disabled = true;
+formElems.forEach((element) => {
+  element.addEventListener("input", handleInput, false);
+});
 
-  customer_login_form.removeAttribute("action");
-customer_login_form.addEventListener("submit", storePasswordCheck, false);
 </script>
