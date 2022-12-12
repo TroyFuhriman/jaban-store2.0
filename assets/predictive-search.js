@@ -120,9 +120,12 @@ class PredictiveSearch extends HTMLElement {
   }
 
   getSearchResults(searchTerm) {
-    const queryKey = searchTerm.replace(" ", "-").toLowerCase();
+    let queryKey = searchTerm.replace(" ", "-").toLowerCase();
+    if(queryKey.length === 2 && !queryKey.includes("-") && !queryKey.includes("ct")){
+      queryKey = queryKey.split("").join("-");
+      searchTerm = searchTerm.split("").join("-");
+    }
     this.setLiveRegionLoadingState();
-
     if (this.cachedResults[queryKey]) {
       this.renderSearchResults(this.cachedResults[queryKey]);
       return;
@@ -135,7 +138,6 @@ class PredictiveSearch extends HTMLElement {
           this.close();
           throw error;
         }
-
         return response.text();
       })
       .then((text) => {
