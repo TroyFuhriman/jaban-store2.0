@@ -68,7 +68,7 @@
       <h1 class="h2">{{ 'general.search.search' | t }}</h1>
     {%- endif -%}
     <div class="template-search__search">
-      {%- if settings.predictive_search_enabled -%}
+      {%- if false -%}
         <predictive-search data-loading-text="{{ 'accessibility.loading' | t }}">
       {%- endif -%}
         <form action="{{ routes.search_url }}" method="get" role="search" class="search">
@@ -80,7 +80,7 @@
               name="q"
               value="{{ search.terms | escape }}"
               placeholder="{{ 'general.search.search' | t }}"
-              {%- if settings.predictive_search_enabled -%}
+              {%- if false -%}
                 role="combobox"
                 aria-expanded="false"
                 aria-owns="predictive-search-results-list"
@@ -96,7 +96,7 @@
             <label class="field__label" for="Search-In-Template">{{ 'general.search.search' | t }}</label>
             <input name="options[prefix]" type="hidden" value="last">
 
-            {%- if settings.predictive_search_enabled -%}
+            {%- if false -%}
               <div class="predictive-search predictive-search--search-template" tabindex="-1" data-predictive-search>
                 <div class="predictive-search__loading-state">
                   <svg aria-hidden="true" focusable="false" role="presentation" class="spinner" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
@@ -115,7 +115,7 @@
             </button>
           </div>
         </form>
-      {%- if settings.predictive_search_enabled -%}
+      {%- if false -%}
         </predictive-search>
       {%- endif -%}
 
@@ -200,15 +200,16 @@
             <div class="template-search__results collection{% if section.settings.filter_type != 'vertical' %} page-width{% endif %}" id="product-grid" data-id="{{ section.id }}">
               <div class="loading-overlay gradient"></div>
               <ul class="grid product-grid  grid--{{ section.settings.columns_mobile }}-col-tablet-down grid--{{ section.settings.columns_desktop }}-col-desktop" role="list">
+                {%- paginate search.results by 200 -%}
                 {%- for item in search.results -%}
                   {% assign lazy_load = false %}
                   {%- if forloop.index > 2 -%}
                     {%- assign lazy_load = true -%}
                   {%- endif -%}
-
-                  <li class="grid__item">
-                    {%- case item.object_type -%}
-                      {%- when 'product' -%}
+                  {%- case item.object_type -%}
+                    {%- when 'product' -%}
+                      {%- if item.tags contains search.terms -%}   
+                      <li class="grid__item">
                         {%- capture product_settings -%}{%- if section.settings.product_show_vendor -%}vendor,{%- endif -%}title,price{%- endcapture -%}
                         {% render 'card-product',
                           card_product: item,
@@ -218,7 +219,32 @@
                           show_rating: section.settings.show_rating,
                           lazy_load: lazy_load
                         %}
+                      </li>
+                    {%- endif -%}
+                  {%- endcase -%}
+                {%- endfor -%}
+                {%- endpaginate -%}
+                {%- for item in search.results -%}
+                  {% assign lazy_load = false %}
+                  {%- if forloop.index > 2 -%}
+                    {%- assign lazy_load = true -%}
+                  {%- endif -%}
+                  {%- case item.object_type -%}
+                    {%- when 'product' -%}
+                      {% unless item.tags contains search.terms %}
+                  <li class="grid__item">
+                          {%- capture product_settings -%}{%- if section.settings.product_show_vendor -%}vendor,{%- endif -%}title,price{%- endcapture -%}
+                          {% render 'card-product',
+                            card_product: item,
+                            media_aspect_ratio: section.settings.image_ratio,
+                            show_secondary_image: section.settings.show_secondary_image,
+                            show_vendor: section.settings.show_vendor,
+                            show_rating: section.settings.show_rating,
+                            lazy_load: lazy_load
+                          %}
+                        {% endunless %}
                       {%- when 'article' -%}
+                        <li class="grid__item">
                         {% render 'article-card',
                           article: item,
                           show_image: true,
@@ -229,6 +255,7 @@
                           lazy_load: lazy_load
                         %}
                       {%- when 'page' -%}
+                        <li class="grid__item">
                         <div class="card-wrapper underline-links-hover">
                           <div class="card card--card card--text ratio color-{{ settings.card_color_scheme }}" style="--ratio-percent: 100%;">
                               <div class="card__content">
