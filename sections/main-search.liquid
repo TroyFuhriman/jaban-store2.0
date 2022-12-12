@@ -68,7 +68,7 @@
       <h1 class="h2">{{ 'general.search.search' | t }}</h1>
     {%- endif -%}
     <div class="template-search__search">
-      {%- if false -%}
+      {%- if settings.predictive_search_enabled -%}
         <predictive-search data-loading-text="{{ 'accessibility.loading' | t }}">
       {%- endif -%}
         <form action="{{ routes.search_url }}" method="get" role="search" class="search">
@@ -80,7 +80,7 @@
               name="q"
               value="{{ search.terms | escape }}"
               placeholder="{{ 'general.search.search' | t }}"
-              {%- if false -%}
+              {%- if settings.predictive_search_enabled -%}
                 role="combobox"
                 aria-expanded="false"
                 aria-owns="predictive-search-results-list"
@@ -96,7 +96,7 @@
             <label class="field__label" for="Search-In-Template">{{ 'general.search.search' | t }}</label>
             <input name="options[prefix]" type="hidden" value="last">
 
-            {%- if false -%}
+            {%- if settings.predictive_search_enabled -%}
               <div class="predictive-search predictive-search--search-template" tabindex="-1" data-predictive-search>
                 <div class="predictive-search__loading-state">
                   <svg aria-hidden="true" focusable="false" role="presentation" class="spinner" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
@@ -115,7 +115,7 @@
             </button>
           </div>
         </form>
-      {%- if false -%}
+      {%- if settings.predictive_search_enabled -%}
         </predictive-search>
       {%- endif -%}
 
