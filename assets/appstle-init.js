@@ -17,7 +17,7 @@
       };
 
 
-      appstleLoadScript("https://cdn.shopify.com/s/files/1/0278/4326/4609/t/9/assets/appstle-subscription.js?v=1661607858");
+      appstleLoadScript("https://cdn.shopify.com/s/files/1/0278/4326/4609/t/9/assets/appstle-subscription.js?v=1671862071");
 
 
       window.RS = Window.RS || {};
@@ -48,7 +48,6 @@
         "sellingPlanSelectTitle": "DELIVERY FREQUENCY",
         "subscriptionPriceDisplayText": "",
         "tooltipTitle": "Subscription detail",
-        "api_key": "",
         "showTooltipOnClick": "false",
         "tooltipDesctiption": "<strong>Have complete control of your subscriptions<\/strong><br\/><br\/>Skip, reschedule, edit, or cancel deliveries anytime, based on your needs.",
         "tooltipDescriptionOnPrepaidPlan": "<b>Prepaid Plan Details<\/b><\/br> Total price: {{totalPrice}} ( Price for every delivery: {{pricePerDelivery}})",
@@ -80,7 +79,7 @@
         "widgetEnabledOnSoldVariant": "false",
         "switchRadioButtonWidget": false,
         "appstlePlanName": "STARTER[CUSTOMER PORTAL SETTINGS]",
-        "appstlePlanFeatures": {"subscriptionCount":1000,"analytics":true,"enableSubscriptionManagement":true,"enableDunningManagement":true,"enableCustomerPortalSettings":true,"enableShippingProfiles":false,"enableProductSwapAutomation":false,"enableAdvancedSellingPlans":true,"enableSummaryReports":true,"enableCustomEmailDomain":false,"enableWidgetPlacement":false,"enableIntegrations":true,"enableSmsAlert":false,"enableCustomEmailHtml":false,"enableCancellationManagement":false,"enableBundling":false,"enableAutomation":false,"enableQuickActions":false,"enableExternalApi":false,"enableCartWidget":false,"enableAutoSync":false},
+        "appstlePlanFeatures": {"accessSplitContract":true,"enableExternalApi":false,"enableQuickActions":false,"enableDunningManagement":true,"enableAutoSync":false,"accessSubscriptionActivityLogs":true,"webhookAccess":false,"accessBundling":true,"analytics":true,"enableCustomEmailHtml":false,"accessAppstleMenu":false,"enableShippingProfiles":false,"accessKlaviyoContactSync":true,"accessCustomWidgetLocations":true,"accessAdvanceSubscriptionPlanOptions":true,"enableSmsAlert":false,"accessOneTimeProductUpsells":true,"accessQuickCheckout":true,"enableCustomEmailDomain":false,"enableSummaryReports":true,"subscriptionCount":1000,"accessManualSubscriptionCreation":true,"enableSubscriptionManagement":true,"enableAutomation":false,"enableBundling":false,"accessResendEmail":true,"enableCartWidget":false,"accessDiscountOnCancellationAttempt":true,"accessWidgetDesignOptions":true,"enableCancellationManagement":false,"accessSubscriberLoyaltyFeatures":true,"enableWidgetPlacement":false,"enableIntegrations":true,"enableCustomerPortalSettings":true,"enableProductSwapAutomation":false,"enableAdvancedSellingPlans":true,"accessBuildABox":false},
         "formMappingAttributeName": "",
         "formMappingAttributeSelector": "",
         "quickViewModalPollingSelector": "",
@@ -96,7 +95,7 @@
         "loyaltyPerkDescriptionText": "",
         "widgetTemplateHtml": ``,
         "bundle": {},
-        "labels": "{\"appstle.subscription.wg.oneTimePurchaseTextV2\":\"One Time Purchase\"}",
+        "labels": "{\"appstle.subscription.wg.yearsFrequencyTextV2\":\"Years\",\"appstle.subscription.wg.weekFrequencyTextV2\":\"Week\",\"appstle.subscription.wg.oneTimePurchaseTextV2\":\"One Time Purchase\",\"appstle.subscription.wg.loyaltyPerkDescriptionTextV2\":\"{{#isDiscountTypeFreeProduct}}<div style='display: flex;'><div style='height: 60px; width: 60px;'><img src={{{featured_image}}}><\/img><\/div><div>After {{{billingCycleBlock}}} orders,<span style='color: #ffc000;font-weight: 700;';> get a FREE {{freeProductName}} <\/span><\/div><div>{{\/isDiscountTypeFreeProduct}}{{#isDiscountTypePercentage}}After <span class='appstle-loyalty-billing-cycle'><span class='appstle-loyalty-billing-cycle-count'>{{{billingCycleBlock}}}<\/span> order<\/span>, <span class='appstle-loyalty-discount'>get <span style='color: #ffc000;font-weight: 700;';>{{{discount}}}% OFF your entire order<\/span><\/span>.{{\/isDiscountTypePercentage}}{{#isDiscountTypeShipping}}After <span class='appstle-loyalty-billing-cycle'><span class='appstle-loyalty-billing-cycle-count'>{{{billingCycleBlock}}}<\/span> order<\/span>, <span class='appstle-loyalty-discount'>get <span style='color: #ffc000;font-weight: 700;';>shipping at {{{formatDiscountedPrice}}}<\/span><\/span>.{{\/isDiscountTypeShipping}}{{#isDiscountTypeFixed}}After <span class='appstle-loyalty-billing-cycle'><span class='appstle-loyalty-billing-cycle-count'>{{{billingCycleBlock}}}<\/span> order<\/span>, <span class='appstle-loyalty-discount'>get <span style='color: #ffc000;font-weight: 700;';>{{{formatDiscountedPrice}}} OFF your entire order<\/span><\/span>.{{\/isDiscountTypeFixed}}\",\"appstle.subscription.wg.unsubscribeFrequencyTextV2\":\"unsubscribe\",\"appstle.subscription.wg.weeksFrequencyTextV2\":\"Weeks\",\"appstle.subscription.wg.oneTimeFrequencyTextV2\":\"One Time\",\"appstle.subscription.wg.dayFrequencyTextV2\":\"day\",\"appstle.subscription.wg.allowFulfilmentCountViaPropertiesV2\":\"true\",\"appstle.subscription.wg.monthsFrequencyTextV2\":\"Months\",\"appstle.subscription.wg.subscribeAndSaveInitalV2\":\"Subscribe & save\",\"appstle.subscription.wg.deliveryEveryFrequencyTextV2\":\"Delivery Every\",\"appstle.subscription.wg.offFrequencyTextV2\":\"Off\",\"appstle.subscription.wg.daysFrequencyTextV2\":\"Days\",\"appstle.subscription.wg.yearFrequencyTextV2\":\"Year\",\"appstle.subscription.wg.subscribeAndSaveSuccessV2\":\"Subscribe success\",\"appstle.subscription.wg.monthFrequencyTextV2\":\"Month\",\"appstle.subscription.wg.selectDeliverOptionV2\":\"select deliver option\"}",
         "css": {
             "appstle_subscription_widget": {
                 "margin-top": "" ,
@@ -167,3 +166,4 @@
     }
   }
 )(window);
+
