@@ -30,8 +30,7 @@
     {% render 'meta-tags' %}
 
     <script src="{{ 'global.js' | asset_url }}" defer="defer"></script>
-    {% include 'wlm-head' %}
-{{ content_for_header }}
+    {{ content_for_header }}
 
     {%- liquid
       assign body_font_bold = settings.type_body_font | font_modify: 'weight', 'bold'
@@ -221,10 +220,10 @@
     {% section 'header' %}
     <main id="MainContent" class="content-for-layout focus-none" role="main" tabindex="-1">
       {% if request.design_mode %}
-          {% comment %}{{ content_for_layout }}{% endcomment %}{% include 'wlm-body' %}
+          {{ content_for_layout }}
       {% else %}
       {% if template.name != "index" %}
-      {% comment %}{{ content_for_layout }}{% endcomment %}{% include 'wlm-body' %}
+      {{ content_for_layout }}
       {% else %}
       {% section 'main-collection-product-grid' %}
       <script>
