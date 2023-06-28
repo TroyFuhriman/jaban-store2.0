@@ -1,333 +1,321 @@
 {% comment %}
-    Renders a product card
+  Renders a product card
 
-    Accepts:
-    - card_product: {Object} Product Liquid object (optional)
-    - media_aspect_ratio: {String} Size of the product image card. Values are "square" and "portrait". Default is "square" (optional)
-    - show_secondary_image: {Boolean} Show the secondary image on hover. Default: false (optional)
-    - show_vendor: {Boolean} Show the product vendor. Default: false
-    - show_rating: {Boolean} Show the product rating. Default: false
-    - extend_height: {Boolean} Card height extends to available container space. Default: true (optional)
-    - lazy_load: {Boolean} Image should be lazy loaded. Default: true (optional)
-    - show_quick_add: {Boolean} Show the quick add button.
-    - section_id: {String} The ID of the section that contains this card.
+  Accepts:
+  - card_product: {Object} Product Liquid object (optional)
+  - media_aspect_ratio: {String} Size of the product image card. Values are "square" and "portrait". Default is "square" (optional)
+  - show_secondary_image: {Boolean} Show the secondary image on hover. Default: false (optional)
+  - show_vendor: {Boolean} Show the product vendor. Default: false
+  - show_rating: {Boolean} Show the product rating. Default: false
+  - extend_height: {Boolean} Card height extends to available container space. Default: true (optional)
+  - lazy_load: {Boolean} Image should be lazy loaded. Default: true (optional)
+  - show_quick_add: {Boolean} Show the quick add button.
+  - section_id: {String} The ID of the section that contains this card.
 
-    Usage:
-    {% render 'card-product', show_vendor: section.settings.show_vendor %}
+  Usage:
+  {% render 'card-product', show_vendor: section.settings.show_vendor %}
 {% endcomment %}
 
 {{ 'component-rating.css' | asset_url | stylesheet_tag }}
 <style>
+  .no-decoration {
+    text-decoration: none !important;
+  }
+  #appstle_subscription_widget0 {
+    width: 100%;
+    text-align: left;
+    margin-top: 17px;
+    clear: both;
+    max-width: 400px;
+  }
 
-  #appstle_subscription_widget0{
-         width: 100%;
-         text-align: left;
-         margin-top: 17px;
-         clear: both;
-         max-width: 400px;
-         
-     }
+  #appstle_subscription_widget0 {
+  }
 
-     #appstle_subscription_widget0{
-       
-     }
+  #appstle_subscription_widget0 .appstle_subscription_wrapper {
+    border: 1.5px solid #cccccc;
+    // box-shadow: 0 0 0 1px #c4cdd5;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    margin-top: 10px;
+  }
 
-       #appstle_subscription_widget0 .appstle_subscription_wrapper {
-            border: 1.5px solid #cccccc;
-           // box-shadow: 0 0 0 1px #c4cdd5;
-           border-radius: 5px;
-           margin-bottom: 5px;
-           margin-top: 10px;
-           
-       }
+  #appstle_subscription_widget0 .appstle_subscription_wrapper_option {
+    display: flex;
+    position: relative;
+    padding: 16px 16px;
+  }
+  #appstle_subscription_widget0 .appstle_selected_background {
+    background: transparent;
+  }
 
-       #appstle_subscription_widget0 .appstle_subscription_wrapper_option {
-           display: flex;
-           position: relative;
-           padding: 16px 16px;
-       }
-       #appstle_subscription_widget0 .appstle_selected_background {
-         background:transparent
-       }
+  #appstle_subscription_widget0 .appstle_subscription_wrapper_option:first-child {
+    // box-shadow: 0 1px 0 0 #c4cdd5;
+    border-bottom: inherit;
+  }
+  #appstle_subscription_widget0 .appstle_subscription_wrapper_option:first-child:last-child {
+    border-bottom: none;
+  }
 
-       #appstle_subscription_widget0 .appstle_subscription_wrapper_option:first-child {
-          // box-shadow: 0 1px 0 0 #c4cdd5;
-          border-bottom: inherit;
-       }
-         #appstle_subscription_widget0 .appstle_subscription_wrapper_option:first-child:last-child {
-          border-bottom: none;
-       }
+  #appstle_subscription_widget0 .appstle_subscription_wrapper_option:not(.appstle_include_dropdown) {
+    align-items: center;
+  }
 
-       #appstle_subscription_widget0 .appstle_subscription_wrapper_option:not(.appstle_include_dropdown) {
-         align-items: center;
-       }
+  #appstle_subscription_widget0 .appstle_subscription_wrapper_option.appstle_include_dropdown {
+    flex-direction: column;
+    justify-content: center;
+  }
 
-       #appstle_subscription_widget0 .appstle_subscription_wrapper_option.appstle_include_dropdown {
-         flex-direction: column;
-         justify-content: center;
-       }
+  #appstle_subscription_widget0 .appstle_subscription_wrapper_option input[type='radio'] {
+    display: none;
+  }
 
+  #appstle_subscription_widget0 .appstle_subscribe_option {
+    margin-left: 29px;
+    margin-top: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+  }
 
-       #appstle_subscription_widget0 .appstle_subscription_wrapper_option input[type='radio'] {
-         display: none;
-       }
+  #appstle_subscription_widget0 .appstle_subscription_amount {
+    margin-left: auto;
+  }
 
-       #appstle_subscription_widget0 .appstle_subscribe_option {
-           margin-left: 29px;
-           margin-top: 25px;
-           display: flex;
-               flex-direction: column;
-           align-items: flex-start;
-           text-align: left;
-       }
+  #appstle_subscription_widget0 .appstle_circle {
+    display: flex;
+    height: 18px;
+    width: 18px;
+    border: 2px solid #3a3a3a;
+    border-radius: 50%;
+    margin-right: 10px;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+  }
 
-       #appstle_subscription_widget0 .appstle_subscription_amount {
-           margin-left: auto;
-       }
+  #appstle_subscription_widget0
+    .appstle_subscription_wrapper_option
+    input[type='radio']:checked
+    + label
+    .appstle_circle
+    .appstle_dot {
+    height: 10px;
+    width: 10px;
+    background-color: #3a3a3a;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
 
-       #appstle_subscription_widget0 .appstle_circle {
-           display: flex;
-           height: 18px;
-           width: 18px;
-           border: 2px solid #3a3a3a;
-           border-radius: 50%;
-           margin-right: 10px;
-           justify-content: center;
-           align-items: center;
-           flex-shrink: 0;
-           
-         }
+  #appstle_subscription_widget0 .appstle_radio_label {
+    display: flex !important;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    background: none;
+  }
 
-       #appstle_subscription_widget0 .appstle_subscription_wrapper_option input[type=radio]:checked + label .appstle_circle .appstle_dot {
-           height: 10px;
-           width: 10px;
-           background-color: #3a3a3a;
-           border-radius: 50%;
-           flex-shrink: 0;
-           
-         }
+  #appstle_subscription_widget0 .appstle_select_label {
+    display: flex !important;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    background: none;
+    margin-bottom: 7px;
+    font-size: 12px;
+  }
 
+  #appstle_subscription_widget0 .appstle_tooltip {
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    box-shadow: 0 2px 4px rgb(0 0 0 / 15%);
+    background-color: #3a3a3a;
+    border-radius: 5px;
+    left: 0;
+    color: #fff;
+    transition: transform 0.2s cubic-bezier(0.215, 0.61, 0.355, 1);
+    -ms-transform: translateY(0);
+    transform: translateY(100%) scaleY(0);
+    transform-origin: center top;
+    opacity: 0;
+    position: absolute;
+    bottom: 1px;
+    // border-bottom-left-radius: 0;
+    min-width: 250px;
+  }
 
-     #appstle_subscription_widget0 .appstle_radio_label {
-       display: flex !important;
-       align-items: center;
-       margin: 0;
-       padding: 0;
-       background: none;
-     }
+  #appstle_subscription_widget0 [data-appstle-icon] {
+    -ms-flex-item-align: end;
+    backface-visibility: hidden;
+  }
 
-     #appstle_subscription_widget0 .appstle_select_label {
-       display: flex !important;
-       align-items: center;
-       margin: 0;
-       padding: 0;
-       background: none;
-       margin-bottom: 7px;
-       font-size: 12px;
+  #appstle_subscription_widget0 [data-appstle-icon]:after {
+    border: solid transparent;
+    border-top-color: #3a3a3a;
+    border-width: 9px;
+    content: '';
+    position: absolute;
+    pointer-events: none;
+    opacity: 0;
+    left: 2px;
+    bottom: 0;
+    -ms-transform: translateX(-50%) translateY(10px) rotate(180deg);
+    transform: translateY(10px) rotate(180deg);
+    transition-delay: 0;
+    visibility: hidden;
+    transition: transform 0.2s cubic-bezier(0.215, 0.61, 0.355, 1);
+    z-index: 99999999;
+    background: none;
+    padding: 0;
+  }
+  @media screen and (max-width: 1024px) {
+    #appstle_subscription_widget0 [data-appstle-icon].appstle-tooltip-show .appstle_tooltip {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(100%) scaleY(1);
+      bottom: 1px;
+      z-index: 99999999;
+    }
 
-     }
+    #appstle_subscription_widget0 [data-appstle-icon].appstle-tooltip-show:after {
+      opacity: 1;
+      visibility: visible;
+      -ms-transform: translateX(-50%) translateY(0) rotate(180deg);
+      transform: translateY(0) rotate(180deg);
+    }
+  }
+  @media screen and (min-width: 1025px) {
+    #appstle_subscription_widget0 [data-appstle-icon]:hover .appstle_tooltip {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(100%) scaleY(1);
+      bottom: 1px;
+      z-index: 99999999;
+    }
 
-     #appstle_subscription_widget0 .appstle_tooltip {
-       -webkit-backface-visibility: hidden;
-       backface-visibility: hidden;
-       box-shadow: 0 2px 4px rgb(0 0 0 / 15%);
-       background-color: #3a3a3a;
-       border-radius: 5px;
-       left: 0;
-       color: #fff;
-       transition: transform .2s cubic-bezier(.215,.61,.355,1);
-       -ms-transform: translateY(0);
-       transform: translateY(100%) scaleY(0);
-       transform-origin: center top;
-       opacity: 0;
-       position: absolute;
-       bottom: 1px;
-       // border-bottom-left-radius: 0;
-       min-width: 250px;
-       
-     }
+    #appstle_subscription_widget0 [data-appstle-icon]:hover:after {
+      opacity: 1;
+      visibility: visible;
+      -ms-transform: translateX(-50%) translateY(0) rotate(180deg);
+      transform: translateY(0) rotate(180deg);
+    }
+  }
 
-     
+  #appstle_subscription_widget0 .appstle_tooltip_wrapper {
+    position: relative;
+    margin-bottom: 6px;
+    display: inline-flex;
+    align-items: center;
+    padding-top: 11px;
+    box-sizing: border-box;
+    margin-left: 0px;
+    padding-bottom: 11px;
+  }
 
-     #appstle_subscription_widget0 [data-appstle-icon] {
-         -ms-flex-item-align: end;
-         backface-visibility: hidden;
-     }
+  #appstle_subscription_widget0 .appstle_tooltip_wrapper_static {
+    font-size: 13px;
+    background-color: beige;
+    border-radius: 6px;
+    padding: 23px;
+    margin-bottom: 10px;
+  }
 
-     #appstle_subscription_widget0 [data-appstle-icon]:after {
-           border: solid transparent;
-           border-top-color: #3a3a3a;
-           border-width: 9px;
-           content: '';
-           position: absolute;
-           pointer-events: none;
-           opacity: 0;
-           left: 2px;
-           bottom: 0;
-           -ms-transform: translateX(-50%) translateY(10px) rotate(180deg);
-           transform: translateY(10px) rotate(180deg);
-           transition-delay: 0;
-           visibility: hidden;
-           transition: transform .2s cubic-bezier(.215,.61,.355,1);
-           z-index: 99999999;
-           background: none;
-           padding: 0;
-           
-     }
- @media screen and (max-width: 1024px) {
- 
-   #appstle_subscription_widget0 [data-appstle-icon].appstle-tooltip-show .appstle_tooltip {
-       opacity: 1;
-       visibility: visible;
-       transform: translateY(100%) scaleY(1);
-       bottom: 1px;
-       z-index: 99999999;
-   }
-     
-   #appstle_subscription_widget0 [data-appstle-icon].appstle-tooltip-show:after {
-     opacity: 1;
-     visibility: visible;
-     -ms-transform: translateX(-50%) translateY(0) rotate(180deg);
-     transform: translateY(0) rotate(180deg);
-   }
- }
-     @media screen and (min-width: 1025px) {
-   #appstle_subscription_widget0 [data-appstle-icon]:hover .appstle_tooltip {
-       opacity: 1;
-       visibility: visible;
-       transform: translateY(100%) scaleY(1);
-       bottom: 1px;
-       z-index: 99999999;
-   }
-   
-   #appstle_subscription_widget0 [data-appstle-icon]:hover:after {
-     opacity: 1;
-     visibility: visible;
-     -ms-transform: translateX(-50%) translateY(0) rotate(180deg);
-     transform: translateY(0) rotate(180deg);
-   }
- }
+  #appstle_subscription_widget0 .tooltip_subscription_svg {
+    height: 22px;
+    width: 22px;
+    margin-right: 10px;
+    fill: black;
+  }
 
-     #appstle_subscription_widget0 .appstle_tooltip_wrapper {
-       position: relative;
-       margin-bottom: 6px;
-       display: inline-flex;
-       align-items: center;
-       padding-top: 11px;
-       box-sizing: border-box;
-       margin-left: 0px;
-       padding-bottom: 11px;
-     }
+  #appstle_subscription_widget0 .appstle_subscription_radio_wrapper {
+    display: flex;
+    align-items: flex-start;
+  }
 
-     #appstle_subscription_widget0 .appstle_tooltip_wrapper_static {
-       font-size: 13px;
-       background-color: beige;
-       border-radius: 6px;
-       padding: 23px;
-       margin-bottom: 10px;
-       
-     }
+  #appstle_subscription_widget0 .appstle_subscription_amount_wrapper {
+    margin-left: auto;
+    text-align: right;
+  }
 
-     #appstle_subscription_widget0 .tooltip_subscription_svg {
-          height: 22px;
-         width: 22px;
-         margin-right: 10px;
-         fill: black;
-         
-     }
+  #appstle_subscription_widget0 .appstle_subscription_amount_wrapper .appstle_prepaid_description {
+    font-size: 12px;
+    opacity: 0.8;
+  }
 
-     #appstle_subscription_widget0 .appstle_subscription_radio_wrapper {
-         display: flex;
-         align-items: flex-start;
-     }
+  .appstle_subscription_final_price {
+    margin-right: 10px;
+    text-decoration: none;
+    color: #da4f49;
+  }
 
-     #appstle_subscription_widget0 .appstle_subscription_amount_wrapper {
-       margin-left: auto;
-       text-align: right;
-     }
+  .appstle_subscription_save {
+    margin-left: 10px;
+    padding: 2px 6px;
+    border: 1px solid #da4f49;
+    border-radius: 3px;
+    font-size: 10px;
+    color: #da4f49;
+    font-weight: bold;
+    display: inline;
+    position: relative;
+    top: -3px;
+    letter-spacing: 1px;
+  }
 
-     #appstle_subscription_widget0 .appstle_subscription_amount_wrapper .appstle_prepaid_description {
-       font-size: 12px;
-       opacity: 0.8;
-     }
+  #appstle_subscription_widget0 .appstle_subscription_wrapper .appstle_select {
+    width: 100%;
+    margin: 0;
+  }
 
-     .appstle_subscription_final_price {
-         margin-right: 10px;
-         text-decoration: none;
-         color: #da4f49;
-         
-     }
+  #appstle_subscription_widget0 .appstle_hide_subsOption {
+    opacity: 0;
+    margin-top: 0;
+    visibility: hidden;
+    height: 0;
+  }
 
-     .appstle_subscription_save {
-         margin-left: 10px;
-           padding: 2px 6px;
-           border: 1px solid #da4f49;
-           border-radius: 3px;
-           font-size: 10px;
-           color: #da4f49;
-           font-weight: bold;
-           display: inline;
-           position: relative;
-           top: -3px;
-           letter-spacing: 1px;
-     }
+  #appstle_subscription_widget0 .appstle_tooltip_content {
+    background-color: #3a3a3a;
+    padding: 16px;
+  }
 
-     #appstle_subscription_widget0 .appstle_subscription_wrapper .appstle_select {
-         width: 100%;
-         margin: 0;
-         
-     }
+  body #appstle_subscription_widget0 .appstle_tooltip_wrapper .appstle_tooltip .appstle_tooltip_appstle {
+    padding: 12px !important;
+    font-size: 8px !important;
+    letter-spacing: 2px !important;
+    text-align: right !important;
+    background: #13b5ea !important;
+    border-bottom-left-radius: 4px !important;
+    border-bottom-right-radius: 4px !important;
+    display: block !important;
+  }
 
-     #appstle_subscription_widget0 .appstle_hide_subsOption {
-       opacity: 0;
-       margin-top: 0;
-       visibility: hidden;
-       height: 0;
-     }
+  .appstle_link {
+    color: inherit !important;
+    text-decoration: none !important;
+    cursor: pointer !important;
+  }
 
-     #appstle_subscription_widget0 .appstle_tooltip_content {
-       background-color: #3a3a3a;
-       padding: 16px;
-     }
+  .appstleRadioSellingPlanWrapper {
+    display: flex;
+    flex-direction: column;
+  }
+  .appstleLoyaltyTable {
+    margin-top: 20px;
+  }
 
-     body #appstle_subscription_widget0 .appstle_tooltip_wrapper .appstle_tooltip .appstle_tooltip_appstle {
-       padding: 12px !important;
-       font-size: 8px !important;
-       letter-spacing: 2px !important;
-       text-align: right !important;
-       background: #13b5ea !important;
-       border-bottom-left-radius: 4px !important;
-       border-bottom-right-radius: 4px !important;
-       display: block !important;
-     }
+  .appstle_loyalty_title {
+    margin-bottom: 10px;
+  }
 
-     .appstle_link {
-       color: inherit !important;
-       text-decoration: none !important;
-       cursor: pointer !important;
-     }
-
-     .appstleRadioSellingPlanWrapper {
-       display: flex;
-       flex-direction: column;
-     }
-     .appstleLoyaltyTable {
-       margin-top: 20px;
-     }
-
-     .appstle_loyalty_title {
-       margin-bottom: 10px;
-     }
-
-     .appstle-loyalty-billing-cycle-count, .appstle-loyalty-discount-amount, .appstle-loyalty-free-trial-discount {
-       color: #198946;
-       font-weight: bold;
-     }
- 
-
-
-     </style>
-
+  .appstle-loyalty-billing-cycle-count,
+  .appstle-loyalty-discount-amount,
+  .appstle-loyalty-free-trial-discount {
+    color: #198946;
+    font-weight: bold;
+  }
+</style>
 
 {%- if card_product and card_product != empty -%}
   {%- liquid
@@ -337,55 +325,70 @@
     elsif card_product.featured_media and media_aspect_ratio == 'adapt'
       assign ratio = card_product.featured_media.aspect_ratio
     endif
-    if ratio == 0 or ratio == nil
+    if ratio == 0 or ratio == null
       assign ratio = 1
     endif
   -%}
   <div class="card-wrapper underline-links-hover">
-    <div class="card
-      card--{{ settings.card_style }}
-      {% if card_product.featured_media %} card--media{% else %} card--text{% endif %}
-      {% if settings.card_style == 'card' %} color-{{ settings.card_color_scheme }} gradient{% endif %}
-      {% if extend_height %} card--extend-height{% endif %}
-      {% if card_product.featured_media == nil and settings.card_style == 'card' %} ratio{% endif %}"
+    <div
+      class="
+        card
+        card--{{ settings.card_style }}
+        {% if card_product.featured_media %} card--media{% else %} card--text{% endif %}
+        {% if settings.card_style == 'card' %} color-{{ settings.card_color_scheme }} gradient{% endif %}
+        {% if extend_height %} card--extend-height{% endif %}
+        {% if card_product.featured_media == nil and settings.card_style == 'card' %} ratio{% endif %}
+      "
       style="--ratio-percent: {{ 1 | divided_by: ratio | times: 100 }}%;"
     >
-      <div class="card__inner {% if settings.card_style == 'standard' %}color-{{ settings.card_color_scheme }} gradient{% endif %}{% if card_product.featured_media or settings.card_style == 'standard' %} ratio{% endif %}" style="--ratio-percent: {{ 1 | divided_by: ratio | times: 100 }}%;">
+      <div
+        class="card__inner {% if settings.card_style == 'standard' %}color-{{ settings.card_color_scheme }} gradient{% endif %}{% if card_product.featured_media or settings.card_style == 'standard' %} ratio{% endif %}"
+        style="--ratio-percent: {{ 1 | divided_by: ratio | times: 100 }}%;"
+      >
         {%- if card_product.featured_media -%}
           <div class="card__media">
             <div class="media media--transparent media--hover-effect">
               {% comment %}theme-check-disable ImgLazyLoading{% endcomment %}
               <img
-                srcset="{%- if card_product.featured_media.width >= 165 -%}{{ card_product.featured_media | image_url: width: 165 }} 165w,{%- endif -%}
+                srcset="
+                  {%- if card_product.featured_media.width >= 165 -%}{{ card_product.featured_media | image_url: width: 165 }} 165w,{%- endif -%}
                   {%- if card_product.featured_media.width >= 360 -%}{{ card_product.featured_media | image_url: width: 360 }} 360w,{%- endif -%}
                   {%- if card_product.featured_media.width >= 533 -%}{{ card_product.featured_media | image_url: width: 533 }} 533w,{%- endif -%}
                   {%- if card_product.featured_media.width >= 720 -%}{{ card_product.featured_media | image_url: width: 720 }} 720w,{%- endif -%}
                   {%- if card_product.featured_media.width >= 940 -%}{{ card_product.featured_media | image_url: width: 940 }} 940w,{%- endif -%}
                   {%- if card_product.featured_media.width >= 1066 -%}{{ card_product.featured_media | image_url: width: 1066 }} 1066w,{%- endif -%}
-                  {{ card_product.featured_media | image_url }} {{ card_product.featured_media.width }}w"
+                  {{ card_product.featured_media | image_url }} {{ card_product.featured_media.width }}w
+                "
                 src="{{ card_product.featured_media | image_url: width: 533 }}"
                 sizes="(min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 130 | divided_by: 4 }}px, (min-width: 990px) calc((100vw - 130px) / 4), (min-width: 750px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2)"
-                {% if card_product.featured_media.alt == blank or card_product.featured_media.alt == "" or card_product.featured_media.alt== card_product.title %}
-                alt="{{card_product.title | append: ' - Dr Jaban Moore - Store'}} "
+                {% if card_product.featured_media.alt == blank
+                  or card_product.featured_media.alt == ''
+                  or card_product.featured_media.alt == card_product.title
+                %}
+                  alt="{{card_product.title | append: ' - Dr Jaban Moore - Store'}} "
                 {% else %}
-                alt="{{ card_product.featured_media.alt | escape }}"
+                  alt="{{ card_product.featured_media.alt | escape }}"
                 {% endif %}
                 class="motion-reduce"
-                {% unless lazy_load == false %}loading="lazy"{% endunless %}
+                {% unless lazy_load == false %}
+                  loading="lazy"
+                {% endunless %}
                 width="{{ card_product.featured_media.width }}"
                 height="{{ card_product.featured_media.height }}"
               >
               {% comment %}theme-check-enable ImgLazyLoading{% endcomment %}
 
-              {%- if card_product.media[1] != nil and show_secondary_image -%}
+              {%- if card_product.media[1] != null and show_secondary_image -%}
                 <img
-                  srcset="{%- if card_product.media[1].width >= 165 -%}{{ card_product.media[1] | image_url: width: 165 }} 165w,{%- endif -%}
+                  srcset="
+                    {%- if card_product.media[1].width >= 165 -%}{{ card_product.media[1] | image_url: width: 165 }} 165w,{%- endif -%}
                     {%- if card_product.media[1].width >= 360 -%}{{ card_product.media[1] | image_url: width: 360 }} 360w,{%- endif -%}
                     {%- if card_product.media[1].width >= 533 -%}{{ card_product.media[1] | image_url: width: 533 }} 533w,{%- endif -%}
                     {%- if card_product.media[1].width >= 720 -%}{{ card_product.media[1] | image_url: width: 720 }} 720w,{%- endif -%}
                     {%- if card_product.media[1].width >= 940 -%}{{ card_product.media[1] | image_url: width: 940 }} 940w,{%- endif -%}
                     {%- if card_product.media[1].width >= 1066 -%}{{ card_product.media[1] | image_url: width: 1066 }} 1066w,{%- endif -%}
-                    {{ card_product.media[1] | image_url }} {{ card_product.media[1].width }}w"
+                    {{ card_product.media[1] | image_url }} {{ card_product.media[1].width }}w
+                  "
                   src="{{ card_product.media[1] | image_url: width: 533 }}"
                   sizes="(min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 130 | divided_by: 4 }}px, (min-width: 990px) calc((100vw - 130px) / 4), (min-width: 750px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2)"
                   alt="{{ card_product.media[1].alt | escape }}"
@@ -400,7 +403,12 @@
         {%- endif -%}
         <div class="card__content">
           <div class="card__information">
-            <h3 class="card__heading"{% if card_product.featured_media == nil and settings.card_style == 'standard' %} id="title-{{ section_id }}-{{ card_product.id }}"{% endif %}>
+            <h3
+              class="card__heading"
+              {% if card_product.featured_media == null and settings.card_style == 'standard' %}
+                id="title-{{ section_id }}-{{ card_product.id }}"
+              {% endif %}
+            >
               <a href="{{ card_product.url }}" class="full-unstyled-link">
                 {{ card_product.title | escape }}
               </a>
@@ -408,16 +416,25 @@
           </div>
           <div class="card__badge {{ settings.badge_position }}">
             {%- if card_product.available == false -%}
-              <span class="badge badge--bottom-left color-{{ settings.sold_out_badge_color_scheme }}">{{ 'products.product.sold_out' | t }}</span>
+              <span class="badge badge--bottom-left color-{{ settings.sold_out_badge_color_scheme }}">
+                {{- 'products.product.sold_out' | t -}}
+              </span>
             {%- elsif card_product.compare_at_price > card_product.price and card_product.available -%}
-              <span class="badge badge--bottom-left color-{{ settings.sale_badge_color_scheme }}">{{ 'products.product.on_sale' | t }}</span>
+              <span class="badge badge--bottom-left color-{{ settings.sale_badge_color_scheme }}">
+                {{- 'products.product.on_sale' | t -}}
+              </span>
             {%- endif -%}
           </div>
         </div>
       </div>
       <div class="card__content">
         <div class="card__information">
-          <h3 class="card__heading{% if card_product.featured_media or settings.card_style == 'standard' %} h5{% endif %}"{% if card_product.featured_media or settings.card_style == 'card' %} id="title-{{ section_id }}-{{ card_product.id }}"{% endif %}>
+          <h3
+            class="card__heading{% if card_product.featured_media or settings.card_style == 'standard' %} h5{% endif %}"
+            {% if card_product.featured_media or settings.card_style == 'card' %}
+              id="title-{{ section_id }}-{{ card_product.id }}"
+            {% endif %}
+          >
             <a href="{{ card_product.url }}" class="full-unstyled-link">
               {{ card_product.title | escape }}
             </a>
@@ -440,98 +457,159 @@
                   assign rating_decimal = 1
                 endif
               %}
-              <div class="rating" role="img" aria-label="{{ 'accessibility.star_reviews_info' | t: rating_value: card_product.metafields.reviews.rating.value, rating_max: card_product.metafields.reviews.rating.value.scale_max }}">
-                <span aria-hidden="true" class="rating-star color-icon-{{ settings.accent_icons }}" style="--rating: {{ card_product.metafields.reviews.rating.value.rating | floor }}; --rating-max: {{ card_product.metafields.reviews.rating.value.scale_max }}; --rating-decimal: {{ rating_decimal }};"></span>
+              <div
+                class="rating"
+                role="img"
+                aria-label="{{ 'accessibility.star_reviews_info' | t: rating_value: card_product.metafields.reviews.rating.value, rating_max: card_product.metafields.reviews.rating.value.scale_max }}"
+              >
+                <span
+                  aria-hidden="true"
+                  class="rating-star color-icon-{{ settings.accent_icons }}"
+                  style="--rating: {{ card_product.metafields.reviews.rating.value.rating | floor }}; --rating-max: {{ card_product.metafields.reviews.rating.value.scale_max }}; --rating-decimal: {{ rating_decimal }};"
+                ></span>
               </div>
               <p class="rating-text caption">
-                <span aria-hidden="true">{{ card_product.metafields.reviews.rating.value }} / {{ card_product.metafields.reviews.rating.value.scale_max }}</span>
+                <span aria-hidden="true">
+                  {{- card_product.metafields.reviews.rating.value }} /
+                  {{ card_product.metafields.reviews.rating.value.scale_max -}}
+                </span>
               </p>
               <p class="rating-count caption">
                 <span aria-hidden="true">({{ card_product.metafields.reviews.rating_count }})</span>
-                <span class="visually-hidden">{{ card_product.metafields.reviews.rating_count }} {{ "accessibility.total_reviews" | t }}</span>
+                <span class="visually-hidden">
+                  {{- card_product.metafields.reviews.rating_count }}
+                  {{ 'accessibility.total_reviews' | t -}}
+                </span>
               </p>
             {%- endif -%}
-            {% if customer %}
-            {% render 'price', product: card_product, price_class: '' %}
+            {% assign vendor_array = shop.metafields.vendor_password.not_required | downcase %}
+            {% assign vendor = card_product.vendor | downcase %}
+            {% if customer or vendor_array contains vendor %}
+              {% render 'price', product: card_product, price_class: '' %}
             {% endif %}
           </div>
         </div>
         {%- if show_quick_add -%}
-        {% if customer %}
-
-          <div class="quick-add">
-            {%- assign product_form_id = 'quick-add-' | append: section_id | append: card_product.id -%}
-            {%- if card_product.has_only_default_variant == false -%}
-              <product-form>
-                {%- form 'product', card_product -%}
-                  <input type="hidden" name="id" value="{{ card_product.selected_or_first_available_variant.id }}" disabled>
-                  {% if customer %}
+          {% if customer or vendor_array contains vendor %}
+            <div class="quick-add">
+              {%- assign product_form_id = 'quick-add-' | append: section_id | append: card_product.id -%}
+              {%- if card_product.has_only_default_variant == false -%}
+                <product-form>
+                  {%- form 'product', card_product -%}
+                    <input
+                      type="hidden"
+                      name="id"
+                      value="{{ card_product.selected_or_first_available_variant.id }}"
+                      disabled
+                    >
+                    {% if customer or vendor_array contains vendor %}
+                      <button
+                        id="{{ product_form_id }}-submit"
+                        type="submit"
+                        name="add"
+                        class="quick-add__submit button button--full-width button--secondary"
+                        aria-haspopup="dialog"
+                        aria-labelledby="{{ product_form_id }}-submit title-{{ section_id }}-{{ card_product.id }}"
+                        aria-live="polite"
+                        data-sold-out-message="true"
+                        {% if card_product.selected_or_first_available_variant.available == false %}
+                          disabled
+                        {% endif %}
+                      >
+                        <span>
+                          {%- if card_product.selected_or_first_available_variant.available -%}
+                            {{ 'products.product.add_to_cart' | t }}
+                          {%- else -%}
+                            {{ 'products.product.sold_out' | t }}
+                          {%- endif -%}
+                        </span>
+                        <span class="sold-out-message hidden">
+                          {{ 'products.product.sold_out' | t }}
+                        </span>
+                        <div class="loading-overlay__spinner hidden">
+                          <svg
+                            aria-hidden="true"
+                            focusable="false"
+                            role="presentation"
+                            class="spinner"
+                            viewBox="0 0 66 66"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <circle class="path" fill="none" stroke-width="6" cx="33" cy="33" r="30"></circle>
+                          </svg>
+                        </div>
+                      </button>
+                    {% endif %}
+                  {%- endform -%}
+                </product-form>
+              {%- else -%}
+                <modal-opener data-modal="#QuickAdd-{{ card_product.id }}">
                   <button
-                  id="{{ product_form_id }}-submit"
-                  type="submit"
-                  name="add"
-                  class="quick-add__submit button button--full-width button--secondary"
-                  aria-haspopup="dialog"
-                  aria-labelledby="{{ product_form_id }}-submit title-{{ section_id }}-{{ card_product.id }}"
-                  aria-live="polite"
-                  data-sold-out-message="true"
-                  {% if card_product.selected_or_first_available_variant.available == false %}disabled{% endif %}
+                    id="{{ product_form_id }}-submit"
+                    type="submit"
+                    name="add"
+                    class="quick-add__submit button button--full-width button--secondary"
+                    aria-haspopup="dialog"
+                    aria-labelledby="{{ product_form_id }}-submit title-{{ section_id }}-{{ card_product.id }}"
+                    data-product-url="{{ card_product.url }}"
                   >
-                  <span>
-                    {%- if card_product.selected_or_first_available_variant.available -%}
-                    {{ 'products.product.add_to_cart' | t }}
-                    {%- else -%}
-                    {{ 'products.product.sold_out' | t }}
-                    {%- endif -%}
-                  </span>
-                  <span class="sold-out-message hidden">
-                    {{ 'products.product.sold_out' | t }}
-                  </span>
-                  <div class="loading-overlay__spinner hidden">
-                    <svg aria-hidden="true" focusable="false" role="presentation" class="spinner" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
-                      <circle class="path" fill="none" stroke-width="6" cx="33" cy="33" r="30"></circle>
-                    </svg>
-                  </div>
-                </button>
-                {% endif %}
-                {%- endform -%}
-              </product-form>
-            {%- else -%}
-              <modal-opener data-modal="#QuickAdd-{{ card_product.id }}">
-                <button
-                  id="{{ product_form_id }}-submit"
-                  type="submit"
-                  name="add"
-                  class="quick-add__submit button button--full-width button--secondary"
-                  aria-haspopup="dialog"
-                  aria-labelledby="{{ product_form_id }}-submit title-{{ section_id }}-{{ card_product.id }}"
-                  data-product-url="{{ card_product.url }}"
+                    {{ 'products.product.choose_options' | t }}
+                    <div class="loading-overlay__spinner hidden">
+                      <svg
+                        aria-hidden="true"
+                        focusable="false"
+                        role="presentation"
+                        class="spinner"
+                        viewBox="0 0 66 66"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <circle class="path" fill="none" stroke-width="6" cx="33" cy="33" r="30"></circle>
+                      </svg>
+                    </div>
+                  </button>
+                </modal-opener>
+                <quick-add-modal
+                  id="QuickAdd-{{ card_product.id }}"
+                  data-handle="{{card_product.handle}}"
+                  class="quick-add-modal"
                 >
-                  {{ 'products.product.choose_options' | t }}
-                  <div class="loading-overlay__spinner hidden">
-                    <svg aria-hidden="true" focusable="false" role="presentation" class="spinner" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
-                      <circle class="path" fill="none" stroke-width="6" cx="33" cy="33" r="30"></circle>
-                    </svg>
+                  <div
+                    role="dialog"
+                    aria-label="{{ 'products.product.choose_product_options' | t: product_name: card_product.title | escape }}"
+                    aria-modal="true"
+                    class="quick-add-modal__content global-settings-popup"
+                    tabindex="-1"
+                  >
+                    <button
+                      id="ModalClose-{{ card_product.id }}"
+                      type="button"
+                      class="quick-add-modal__toggle"
+                      aria-label="{{ 'accessibility.close' | t }}"
+                    >
+                      {% render 'icon-close' %}
+                    </button>
+                    <div id="QuickAddInfo-{{ card_product.id }}" class="quick-add-modal__content-info"></div>
                   </div>
-                </button>
-              </modal-opener>
-              <quick-add-modal id="QuickAdd-{{ card_product.id }}" data-handle="{{card_product.handle}}" class="quick-add-modal">
-                <div role="dialog" aria-label="{{ 'products.product.choose_product_options' | t: product_name: card_product.title | escape }}" aria-modal="true" class="quick-add-modal__content global-settings-popup" tabindex="-1">
-                  <button id="ModalClose-{{ card_product.id }}" type="button" class="quick-add-modal__toggle" aria-label="{{ 'accessibility.close' | t }}">{% render 'icon-close' %}</button>
-                  <div id="QuickAddInfo-{{ card_product.id }}" class="quick-add-modal__content-info">
-                  </div>
-                </div>          
-              </quick-add-modal>
-            {%- endif -%}
-          </div>
-                    
-        {% endif %}
+                </quick-add-modal>
+              {%- endif -%}
+            </div>
+          {% else %}
+            <div class="quick-add ">
+              <a class="no-decoration" href="/account/login">
+                <button class="button button--full-width button--primary">Login to Add</button>
+              </a>
+            </div>
+          {% endif %}
         {%- endif -%}
         <div class="card__badge {{ settings.badge_position }}">
           {%- if card_product.available == false -%}
-            <span class="badge badge--bottom-left color-{{ settings.sold_out_badge_color_scheme }}">{{ 'products.product.sold_out' | t }}</span>
+            <span class="badge badge--bottom-left color-{{ settings.sold_out_badge_color_scheme }}">
+              {{- 'products.product.sold_out' | t -}}
+            </span>
           {%- elsif card_product.compare_at_price > card_product.price and card_product.available -%}
-            <span class="badge badge--bottom-left color-{{ settings.sale_badge_color_scheme }}">{{ 'products.product.on_sale' | t }}</span>
+            <span class="badge badge--bottom-left color-{{ settings.sale_badge_color_scheme }}">
+              {{- 'products.product.on_sale' | t -}}
+            </span>
           {%- endif -%}
         </div>
       </div>
@@ -539,15 +617,21 @@
   </div>
 {%- else -%}
   <div class="card-wrapper underline-links-hover">
-    <div class="card
-      card--{{ settings.card_style }}
-      card--text
-      {% if extend_height %} card--extend-height{% endif %}
-      {% if settings.card_style == 'card' %} color-{{ settings.card_color_scheme }} gradient{% endif %}
-      {% if card_product.featured_media == nil and settings.card_style == 'card' %} ratio{% endif %}"
+    <div
+      class="
+        card
+        card--{{ settings.card_style }}
+        card--text
+        {% if extend_height %} card--extend-height{% endif %}
+        {% if settings.card_style == 'card' %} color-{{ settings.card_color_scheme }} gradient{% endif %}
+        {% if card_product.featured_media == nil and settings.card_style == 'card' %} ratio{% endif %}
+      "
       style="--ratio-percent: 100%;"
     >
-      <div class="card__inner {% if settings.card_style == 'standard' %}color-{{ settings.card_color_scheme }} gradient{% endif %}{% if settings.card_style == 'standard' %} ratio{% endif %}" style="--ratio-percent: 100%;">
+      <div
+        class="card__inner {% if settings.card_style == 'standard' %}color-{{ settings.card_color_scheme }} gradient{% endif %}{% if settings.card_style == 'standard' %} ratio{% endif %}"
+        style="--ratio-percent: 100%;"
+      >
         <div class="card__content">
           <div class="card__information">
             <h3 class="card__heading">
